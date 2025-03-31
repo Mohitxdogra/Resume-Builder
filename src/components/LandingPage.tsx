@@ -4,58 +4,61 @@ import { FAQ } from './FAQ'
 import { Testimonials } from './Testimonials'
 import { MarqueeLogos } from './MarqueeLogos'
 
-const partners = [
-  {
-    name: "Microsoft",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg"
-  },
-  {
-    name: "Google",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
-  },
-  {
-    name: "Amazon",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
-  },
-  {
-    name: "Meta",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg"
-  },
-  {
-    name: "Apple",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
-  },
-  {
-    name: "Netflix",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
-  }
-]
-
 export default function LandingPage() {
   const { theme, setTheme } = useTheme()
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-border">
+    <div
+      className={`min-h-screen ${
+        theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-900'
+      }`}
+    >
+      <header className={`border-b ${theme === 'dark' ? 'border-gray-800' : 'border-gray-200'}`}>
         <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center">
             <span className="text-2xl font-bold">
               <span className="text-pink-500">Mock</span>
-              <span className="text-white">Ready</span>
+              <span className={theme === 'dark' ? 'text-white' : 'text-gray-900'}>Ready</span>
             </span>
           </div>
           <div className="flex items-center space-x-6">
-            <Link to="/create" className="bg-pink-500 hover:bg-pink-600 px-6 py-2 rounded-md text-white">
+            <Link
+              to="/create"
+              className="bg-pink-500 hover:bg-pink-600 px-6 py-2 rounded-md text-white font-medium"
+            >
               Create Resume
             </Link>
-            <a href="#features" className="text-gray-300 hover:text-white">Features</a>
-            <a href="#testimonials" className="text-gray-300 hover:text-white">Testimonials</a>
-            <a href="#faq" className="text-gray-300 hover:text-white">FAQ</a>
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="text-gray-300 hover:text-white"
+            <a
+              href="#features"
+              className={`${
+                theme === 'dark' ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+              }`}
             >
-              {theme === "dark" ? "🌞" : "🌙"}
+              Features
+            </a>
+            <a
+              href="#testimonials"
+              className={`${
+                theme === 'dark' ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Testimonials
+            </a>
+            <a
+              href="#faq"
+              className={`${
+                theme === 'dark' ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              FAQ
+            </a>
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className={`${
+                theme === 'dark' ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              {theme === 'dark' ? '🌞' : '🌙'}
             </button>
           </div>
         </nav>
@@ -67,11 +70,15 @@ export default function LandingPage() {
             <div>
               <h1 className="text-5xl font-bold mb-6">
                 <span className="text-pink-500">Mock Ready</span>{' '}
-                <span className="text-white">Master Your</span>
+                <span className={theme === 'dark' ? 'text-white' : 'text-gray-900'}>Master Your</span>
                 <br />
                 <span className="text-[#3B82F6]">Career Journey</span>
               </h1>
-              <p className="text-gray-400 text-xl mb-8">
+              <p
+                className={`text-xl mb-8 ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-700'
+                }`}
+              >
                 Create Professional Resumes in Minutes with Our Smart Builder!
               </p>
               <Link
@@ -82,18 +89,33 @@ export default function LandingPage() {
               </Link>
 
               <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                  <h3 className="text-lg font-semibold mb-2 text-white">Free Forever</h3>
-                  <p className="text-gray-400">Create unlimited resumes at no cost</p>
-                </div>
-                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                  <h3 className="text-lg font-semibold mb-2 text-white">PDF Export</h3>
-                  <p className="text-gray-400">Download in professional format</p>
-                </div>
-                <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                  <h3 className="text-lg font-semibold mb-2 text-white">No Login</h3>
-                  <p className="text-gray-400">Start instantly, no registration</p>
-                </div>
+                {[
+                  { title: 'Free Forever', description: 'Create unlimited resumes at no cost' },
+                  { title: 'PDF Export', description: 'Download in professional format' },
+                  { title: 'No Login', description: 'Start instantly, no registration' },
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className={`p-4 rounded-lg border ${
+                      theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+                    }`}
+                  >
+                    <h3
+                      className={`text-lg font-semibold mb-2 ${
+                        theme === 'dark' ? 'text-white' : 'text-gray-900'
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className={`${
+                        theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -109,16 +131,26 @@ export default function LandingPage() {
                 </Link>
                 <div className="mt-6 space-y-2">
                   {[
-                    "Unlimited Resume Creation",
-                    "Professional PDF Export",
-                    "Multiple Templates",
-                    "Real-time Preview",
-                    "No Credit Card Required",
-                    "No Hidden Fees"
+                    'Unlimited Resume Creation',
+                    'Professional PDF Export',
+                    'Multiple Templates',
+                    'Real-time Preview',
+                    'No Credit Card Required',
+                    'No Hidden Fees',
                   ].map((feature, index) => (
                     <div key={index} className="flex items-center text-white">
-                      <svg className="h-5 w-5 text-white mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      <svg
+                        className="h-5 w-5 text-white mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                       <span>{feature}</span>
                     </div>
@@ -135,4 +167,4 @@ export default function LandingPage() {
       </main>
     </div>
   )
-} 
+}
