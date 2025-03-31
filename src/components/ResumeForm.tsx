@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { ResumeData, Experience, Education, Project } from '../types'
+import { ResumeData } from '../types'
 
 interface ResumeFormProps {
   data: ResumeData
@@ -7,8 +6,6 @@ interface ResumeFormProps {
 }
 
 export default function ResumeForm({ data, onChange }: ResumeFormProps) {
-  const [activeSection, setActiveSection] = useState('personal')
-
   const updatePersonalInfo = (field: string, value: string) => {
     onChange({
       ...data,
@@ -76,40 +73,6 @@ export default function ResumeForm({ data, onChange }: ResumeFormProps) {
     onChange({
       ...data,
       education: newEducation
-    })
-  }
-
-  const addProject = () => {
-    onChange({
-      ...data,
-      projects: [
-        ...data.projects,
-        {
-          name: '',
-          description: '',
-          technologies: [],
-          link: ''
-        }
-      ]
-    })
-  }
-
-  const updateProject = (index: number, field: string, value: string | string[]) => {
-    const newProjects = [...data.projects]
-    if (field === 'technologies') {
-      newProjects[index] = {
-        ...newProjects[index],
-        technologies: (value as string).split(',').map(tech => tech.trim())
-      }
-    } else {
-      newProjects[index] = {
-        ...newProjects[index],
-        [field]: value
-      }
-    }
-    onChange({
-      ...data,
-      projects: newProjects
     })
   }
 
